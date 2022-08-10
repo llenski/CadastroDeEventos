@@ -1,0 +1,11 @@
+.collapse {
+  transition: all 0.3s ease-out;
+  display: block !important;
+  overflow: hidden !important;
+  max-height: 0;
+}
+
+.collapse.in {
+  transition: all 0.5s ease-in;
+  max-height: 9999px; /*any number which is lager than a height of any of your elements*/
+}
