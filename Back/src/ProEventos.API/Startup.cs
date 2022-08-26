@@ -1,18 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using ProEventos.API.Data;
+using ProEventos.Application.Contratos;
+using ProEventos.Application.Servicos;
+using ProEventos.Persistence.Contexto;
+using ProEventos.Persistence.Contratos;
+using ProEventos.Persistence.Repositorios;
 
 namespace ProEventos.API
 {
@@ -29,12 +26,20 @@ namespace ProEventos.API
         public void ConfigureServices(IServiceCollection services)
         {
             //Adiciona o contexto
-            services.AddDbContext<DataContext>(
+            services.AddDbContext<ProEventosContext>(
                 context => context.UseSqlite( Configuration.GetConnectionString("DefaultConnection"))
             );
 
-            services.AddControllers();
+            services.AddControllers()
+                    .AddNewtonsoftJson( x => x.SerializerSettings.ReferenceLoopHandling =  // Linhas para erro de referencia cíclica
+                        Newtonsoft.Json.ReferenceLoopHandling.Ignore                      // Ex: Evento => Palestrante(EventoId);
+                    );
+
             services.AddCors();
+            services.AddScoped<IEventosService, EventosService>();
+            services.AddScoped<IGeralPersist, GeralPersist>();
+            services.AddScoped<IEventoPersist,EventoPersist>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEventos.API", Version = "v1" });
