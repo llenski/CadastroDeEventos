@@ -34,7 +34,7 @@ namespace ProEventos.API
                     .AddNewtonsoftJson( x => x.SerializerSettings.ReferenceLoopHandling =  // Linhas para erro de referencia cíclica
                         Newtonsoft.Json.ReferenceLoopHandling.Ignore                      // Ex: Evento => Palestrante(EventoId);
                     );
-
+                ////Testando////
             services.AddCors();
             services.AddScoped<IEventosService, EventosService>();
             services.AddScoped<IGeralPersist, GeralPersist>();
