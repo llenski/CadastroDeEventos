@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
