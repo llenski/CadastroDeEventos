@@ -5,8 +5,8 @@ import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { Evento } from '../models/Evento';
-import { EventoService } from '../services/evento.service.service';
+import { Evento } from '../../models/Evento';
+import { EventoService } from '../../services/evento.service.service';
 
 @Component({
   selector: 'app-eventos',
@@ -87,12 +87,12 @@ export class EventosComponent implements OnInit {
   }
 
   confirm(): void {
-    this.toastr.success('Alteração Realizada!', 'Confirmação');
+    this.toastr.success('Evento Deletado!', 'Efetuado');
     this.modalRef.hide();
   }
 
   decline(): void {
-    this.toastr.info('Nada foi alterado!', 'Negativa');
+    this.toastr.info('Nada foi alterado!', 'Cancelado');
     this.modalRef.hide();
   }
 }
